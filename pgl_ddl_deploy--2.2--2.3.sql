@@ -1,3 +1,8 @@
+/* pgl_ddl_deploy--2.2--2.3.sql */
+
+-- complain if script is sourced in psql, rather than via CREATE EXTENSION
+\echo Use "CREATE EXTENSION pgl_ddl_deploy" to load this file. \quit
+
 CREATE OR REPLACE VIEW pgl_ddl_deploy.event_trigger_schema AS
 WITH vars AS
 (SELECT
@@ -720,3 +725,5 @@ SELECT
         AND evtenabled IN('O','R','A')
     ) AS is_deployed
 FROM build b;
+
+

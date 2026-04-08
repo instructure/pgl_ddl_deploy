@@ -107,7 +107,7 @@ get_altertable_subcmdinfo(PG_FUNCTION_ARGS)
 				strtype = "ADD OIDS (and recurse)";
 				break;
 #endif
-#if PG_VERSION_NUM >= 120000
+#if PG_VERSION_NUM >= 120000 && PG_VERSION_NUM < 180000
 			case AT_CheckNotNull:
 				strtype = "CHECK NOT NULL";
 				break;
@@ -132,6 +132,11 @@ get_altertable_subcmdinfo(PG_FUNCTION_ARGS)
 				break;
 			case AT_DropConstraintRecurse:
 				strtype = "DROP CONSTRAINT (and recurse)";
+				break;
+#endif
+#if PG_VERSION_NUM >= 170000
+			case AT_SetExpression:
+				strtype = "SET EXPRESSION";
 				break;
 #endif
 #if PG_VERSION_NUM >= 160000

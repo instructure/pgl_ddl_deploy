@@ -1,0 +1,43 @@
+on:
+  pull_request:
+    branches: [ master ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        pg_version: ["11", "12", "13", "14", "15", "16", "17", "18"]
+        from_version: ["2.2", "2.3"]
+    steps:
+      - uses: actions/checkout@v6
+      - name: Remove default PostgreSQL
+        run: |
+          sudo apt-get remove -y postgresql-*
+      - name: Install PostgreSQL
+        run: |
+          sudo install -d /usr/share/postgresql-common/pgdg
+          sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+          sudo sh -c 'echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          sudo apt-get update
+          sudo apt-get install -y "postgresql-${{ matrix.pg_version }}" "postgresql-server-dev-${{ matrix.pg_version }}" "postgresql-${{ matrix.pg_version }}-pglogical"
+          sudo pg_createcluster -p 5433 ${{ matrix.pg_version }} test
+          sudo sh -c 'echo "shared_preload_libraries = 'pglogical'\nwal_level = 'logical'" >> /etc/postgresql/${{ matrix.pg_version }}/test/postgresql.conf'
+          sudo pg_ctlcluster ${{ matrix.pg_version }} test start
+          RUNNER_USERNAME=$(whoami)
+          sudo -u postgres psql -p 5433 -c "CREATE USER $RUNNER_USERNAME WITH SUPERUSER"
+      - name: Run tests
+        env:
+          FROMVERSION: ${{ matrix.from_version }}
+          PGPORT: 5433
+        run: |
+          export PATH="/usr/lib/postgresql/${{ matrix.pg_version }}/bin:$PATH"
+          make
+          sudo make install
+          make installcheck || (cat regression.diffs && false)
+      - name: Upload Results
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: test-results-${{ matrix.pg_version }}-from-${{ matrix.from_version }}
+          path: regression.*
