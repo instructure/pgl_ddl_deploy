@@ -1,0 +1,40 @@
+on:
+  push:
+    tags:
+      - 'v*'
+    # temp testing
+    branches:
+      - '*'
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        architecture: [ 'amd64', 'arm64' ]
+        ubuntu_version: [ 'focal', 'noble' ]
+    runs-on: "${{ case(matrix.architecture == 'arm64', 'ubuntu-24.04-arm', 'ubuntu-24.04') }}"
+    steps:
+      - uses: actions/checkout@v6
+      - uses: jtdor/build-deb-action@v1
+        with:
+          setup-hook: |
+            apt-get update
+            apt-get install -y apt-transport-https ca-certificates curl
+            install -d /usr/share/postgresql-common/pgdg
+            curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+            # pg 18 doesn't exist on focal, but pglogical doesn't have a nice meta all package like postgres does
+            if [ "${{ matrix.ubuntu_version }}" = "focal" ]; then
+              sed -i 's/postgresql-18-pglogical,//g' debian/control
+            fi
+          before-build-hook: |
+            # This should ensure pg18 is entirely stripped from the focal 
+            pg_buildext updatecontrol
+          buildpackage-opts: --build=binary --no-sign
+          docker-image: "ubuntu:${{ matrix.ubuntu_version }}"
+          extra-repos: |
+            deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://${{ case(matrix.ubuntu_version == 'focal', 'apt-archive.postgresql.org', 'apt.postgresql.org') }}/pub/repos/apt ${{ matrix.ubuntu_version }}-pgdg main
+      - name: Upload Packages
+        uses: actions/upload-artifact@v6
+        with:
+          name: deb-packages-${{ matrix.ubuntu_version }}-${{ matrix.architecture }}
+          path: debian/artifacts
