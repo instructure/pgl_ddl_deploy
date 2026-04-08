@@ -6,7 +6,7 @@ Build-Depends:
   architecture-is-64-bit <!pkg.postgresql.32-bit>,
   debhelper-compat (= 13),
   libpq-dev,
-  postgresql-16-pglogical,
+  postgresql-11-pglogical, postgresql-12-pglogical, postgresql-13-pglogical, postgresql-14-pglogical, postgresql-15-pglogical, postgresql-16-pglogical, postgresql-17-pglogical, postgresql-18-pglogical,
   postgresql-all <!nocheck>,
   postgresql-server-dev-all
 Standards-Version: 4.7.0
@@ -14,6 +14,51 @@ Rules-Requires-Root: no
 Homepage: https://github.com/instructure/pgl_ddl_deploy
 Vcs-Browser: https://github.com/instructure/pgl_ddl_deploy
 Vcs-Git: https://github.com/instructure/pgl_ddl_deploy.git
+
+Package: postgresql-11-pgl-ddl-deploy
+Architecture: any
+Depends:
+  postgresql-11,
+  ${shlibs:Depends},
+  ${misc:Depends}
+Description: Transparent DDL replication for PostgreSQL
+ Automated DDL deployment using PgLogical for PostgreSQL 11.
+
+Package: postgresql-12-pgl-ddl-deploy
+Architecture: any
+Depends:
+  postgresql-12,
+  ${shlibs:Depends},
+  ${misc:Depends}
+Description: Transparent DDL replication for PostgreSQL
+ Automated DDL deployment using PgLogical for PostgreSQL 12.
+
+Package: postgresql-13-pgl-ddl-deploy
+Architecture: any
+Depends:
+  postgresql-13,
+  ${shlibs:Depends},
+  ${misc:Depends}
+Description: Transparent DDL replication for PostgreSQL
+ Automated DDL deployment using PgLogical for PostgreSQL 13.
+
+Package: postgresql-14-pgl-ddl-deploy
+Architecture: any
+Depends:
+  postgresql-14,
+  ${shlibs:Depends},
+  ${misc:Depends}
+Description: Transparent DDL replication for PostgreSQL
+ Automated DDL deployment using PgLogical for PostgreSQL 14.
+
+Package: postgresql-15-pgl-ddl-deploy
+Architecture: any
+Depends:
+  postgresql-15,
+  ${shlibs:Depends},
+  ${misc:Depends}
+Description: Transparent DDL replication for PostgreSQL
+ Automated DDL deployment using PgLogical for PostgreSQL 15.
 
 Package: postgresql-16-pgl-ddl-deploy
 Architecture: any
@@ -23,3 +68,21 @@ Depends:
   ${misc:Depends}
 Description: Transparent DDL replication for PostgreSQL
  Automated DDL deployment using PgLogical for PostgreSQL 16.
+
+Package: postgresql-17-pgl-ddl-deploy
+Architecture: any
+Depends:
+  postgresql-17,
+  ${shlibs:Depends},
+  ${misc:Depends}
+Description: Transparent DDL replication for PostgreSQL
+ Automated DDL deployment using PgLogical for PostgreSQL 17.
+
+Package: postgresql-18-pgl-ddl-deploy
+Architecture: any
+Depends:
+  postgresql-18,
+  ${shlibs:Depends},
+  ${misc:Depends}
+Description: Transparent DDL replication for PostgreSQL
+ Automated DDL deployment using PgLogical for PostgreSQL 18.

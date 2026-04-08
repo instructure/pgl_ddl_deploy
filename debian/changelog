@@ -4,7 +4,7 @@ pgl-ddl-deploy (2.3.0-1) unstable; urgency=medium
 
  -- Jacob Burroughs <jburroughs@instructure.com>  Wed, 8 Apr 2026 06:18:15 -0500
  
- pgl-ddl-deploy (2.2.1-1) unstable; urgency=medium
+pgl-ddl-deploy (2.2.1-1) unstable; urgency=medium
 
   * Fix 2.2 upgrade scripts
 
