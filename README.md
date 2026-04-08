@@ -39,6 +39,10 @@ https://innovation.enova.com/pursuing-postgres-ddl-replication/
 
 # <a name="release_notes"></a>Release Notes
 
+### Release 2.3
+Summary of changes:
+* Support for Postgres 17 & 18
+
 ### Release 2.2
 Summary of changes:
 * Support for Postgres 16
