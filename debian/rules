@@ -1,7 +1,10 @@
 #!/usr/bin/make -f
 
 override_dh_pgxs_test:
-	# defer testing to autopkgtest, we need postgresql-*-pglogical installed
+	USER=postgres \
+	pg_buildext -o shared_preload_libraries=pglogical -o wal_level=logical \
+		installcheck . . postgresql-%v-pgl-ddl-deploy
+
 
 %:
 	dh $@ --with pgxs

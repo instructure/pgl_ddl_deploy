@@ -1,16 +1,25 @@
 Source: pgl-ddl-deploy
 Section: database
 Priority: optional
-Maintainer: Jeremy Finzel <jfinzel@enova.com>
-Build-Depends: debhelper-compat (= 13), libpq-dev, postgresql-common, postgresql-server-dev-all
-Standards-Version: 4.5.0
+Maintainer: Jacob Burroughs <jburroughs@instructure.com>
+Build-Depends:
+  architecture-is-64-bit <!pkg.postgresql.32-bit>,
+  debhelper-compat (= 13),
+  libpq-dev,
+  postgresql-PGVERSIONS-pglogical,
+  postgresql-all <!nocheck>,
+  postgresql-server-dev-all
+Standards-Version: 4.7.0
 Rules-Requires-Root: no
-Homepage: https://github.com/enova/pgl_ddl_deploy
-Vcs-Browser: https://github.com/enova/pgl_ddl_deploy
-Vcs-Git: https://github.com/enova/pgl_ddl_deploy.git
+Homepage: https://github.com/instructure/pgl_ddl_deploy
+Vcs-Browser: https://github.com/instructure/pgl_ddl_deploy
+Vcs-Git: https://github.com/instructure/pgl_ddl_deploy.git
 
 Package: postgresql-PGVERSION-pgl-ddl-deploy
 Architecture: any
-Depends: postgresql-PGVERSION, ${shlibs:Depends}, ${misc:Depends}
+Depends:
+  postgresql-PGVERSION,
+  ${shlibs:Depends},
+  ${misc:Depends}
 Description: Transparent DDL replication for PostgreSQL
  Automated DDL deployment using PgLogical for PostgreSQL PGVERSION.
