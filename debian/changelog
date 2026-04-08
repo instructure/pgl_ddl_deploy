@@ -1,4 +1,4 @@
-pgl-ddl-deploy (2.2.0-1) unstable; urgency=medium
+pgl-ddl-deploy (2.3.0-1) unstable; urgency=medium
 
   * Support for Postgres 16
 
