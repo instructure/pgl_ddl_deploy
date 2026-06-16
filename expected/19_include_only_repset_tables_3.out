@@ -9,8 +9,8 @@ WHERE c.set_name LIKE 'my_special_tables%'
 ORDER BY e.id DESC LIMIT 10;
    create_tags   |      set_name       |                   ddl_sql_raw                    |                   ddl_sql_sent                   
 -----------------+---------------------+--------------------------------------------------+--------------------------------------------------
- {"ALTER TABLE"} | my_special_tables_2 | ALTER TABLE special.bar ADD COLUMN happier TEXT; | ALTER TABLE special.bar ADD COLUMN happier TEXT;
- {"ALTER TABLE"} | my_special_tables_1 | ALTER TABLE special.foo ADD COLUMN happy TEXT;   | ALTER TABLE special.foo ADD COLUMN happy TEXT;
+ {"ALTER TABLE"} | my_special_tables_2 | ALTER TABLE special.bar ADD COLUMN happier TEXT; | ALTER TABLE special.bar ADD COLUMN happier text;
+ {"ALTER TABLE"} | my_special_tables_1 | ALTER TABLE special.foo ADD COLUMN happy TEXT;   | ALTER TABLE special.foo ADD COLUMN happy text;
 (2 rows)
 
 --Test renaming which was missing in 1.2
@@ -34,8 +34,8 @@ WHERE c.set_name LIKE 'my_special_tables%' ORDER BY e.id DESC LIMIT 20;
  my_special_tables_2 | ALTER TABLE special.bar RENAME COLUMN happier TO happierz; | ALTER TABLE special.bar RENAME COLUMN happier TO happierz;
  my_special_tables_1 | ALTER TABLE special.foo RENAME COLUMN id TO id_2;          | ALTER TABLE special.foo RENAME COLUMN id TO id_2;
  my_special_tables_1 | ALTER TABLE special.foo ADD CONSTRAINT bla CHECK (true);   | ALTER TABLE special.foo ADD CONSTRAINT bla CHECK (true);
- my_special_tables_1 | ALTER TABLE special.foo RENAME COLUMN happy to happyz;     | ALTER TABLE special.foo RENAME COLUMN happy to happyz;
- my_special_tables_2 | ALTER TABLE special.bar ADD COLUMN happier TEXT;           | ALTER TABLE special.bar ADD COLUMN happier TEXT;
- my_special_tables_1 | ALTER TABLE special.foo ADD COLUMN happy TEXT;             | ALTER TABLE special.foo ADD COLUMN happy TEXT;
+ my_special_tables_1 | ALTER TABLE special.foo RENAME COLUMN happy to happyz;     | ALTER TABLE special.foo RENAME COLUMN happy TO happyz;
+ my_special_tables_2 | ALTER TABLE special.bar ADD COLUMN happier TEXT;           | ALTER TABLE special.bar ADD COLUMN happier text;
+ my_special_tables_1 | ALTER TABLE special.foo ADD COLUMN happy TEXT;             | ALTER TABLE special.foo ADD COLUMN happy text;
 (9 rows)
 

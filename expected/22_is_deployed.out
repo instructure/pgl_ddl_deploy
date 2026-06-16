@@ -108,10 +108,10 @@ SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY i
  test3    | DROP TABLE foobar CASCADE;                   | DROP TABLE foobar CASCADE;
  test2    | DROP TABLE foobar CASCADE;                   | DROP TABLE foobar CASCADE;
  test1    | DROP TABLE foobar CASCADE;                   | DROP TABLE foobar CASCADE;
- test4    | CREATE TABLE foobar (id serial primary key); | CREATE TABLE foobar (id serial primary key);
- test3    | CREATE TABLE foobar (id serial primary key); | CREATE TABLE foobar (id serial primary key);
- test2    | CREATE TABLE foobar (id serial primary key); | CREATE TABLE foobar (id serial primary key);
- test1    | CREATE TABLE foobar (id serial primary key); | CREATE TABLE foobar (id serial primary key);
+ test4    | CREATE TABLE foobar (id serial primary key); | CREATE TABLE foobar (id serial PRIMARY KEY);
+ test3    | CREATE TABLE foobar (id serial primary key); | CREATE TABLE foobar (id serial PRIMARY KEY);
+ test2    | CREATE TABLE foobar (id serial primary key); | CREATE TABLE foobar (id serial PRIMARY KEY);
+ test1    | CREATE TABLE foobar (id serial primary key); | CREATE TABLE foobar (id serial PRIMARY KEY);
  test4    | DROP SCHEMA special;                         | DROP SCHEMA special;
  test3    | DROP SCHEMA special;                         | DROP SCHEMA special;
 (10 rows)

@@ -1,3 +1,40 @@
+/* pgl_ddl_deploy--2.3--2.4.sql */
+
+-- complain if script is sourced in psql, rather than via CREATE EXTENSION
+\echo Use "CREATE EXTENSION pgl_ddl_deploy" to load this file. \quit
+
+ALTER TABLE pgl_ddl_deploy.set_configs ADD COLUMN include_indexes BOOLEAN NOT NULL DEFAULT FALSE;
+
+
+CREATE OR REPLACE FUNCTION pgl_ddl_deploy.rewrite_transaction_safe(p_sql text)
+ RETURNS text
+ LANGUAGE c
+ STRICT
+AS '$libdir/pgl_ddl_deploy', $function$rewrite_transaction_safe$function$
+;
+
+CREATE OR REPLACE FUNCTION pgl_ddl_deploy.set_tag_defaults()
+ RETURNS trigger
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+IF NEW.create_tags IS NULL THEN
+    NEW.create_tags = CASE WHEN NEW.include_only_repset_tables THEN pgl_ddl_deploy.standard_repset_only_tags() ELSE pgl_ddl_deploy.standard_create_tags() END;
+    IF NEW.include_indexes AND NOT NEW.include_only_repset_tables THEN
+        NEW.create_tags = NEW.create_tags || '{"CREATE INDEX","ALTER INDEX"}'::TEXT[];
+    END IF;
+END IF;
+IF NEW.drop_tags IS NULL THEN
+    NEW.drop_tags = CASE WHEN NEW.include_only_repset_tables THEN NULL ELSE pgl_ddl_deploy.standard_drop_tags() END;
+    IF NEW.include_indexes AND NOT NEW.include_only_repset_tables THEN
+        NEW.drop_tags = NEW.drop_tags || '{"DROP INDEX"}'::TEXT[];
+    END IF;
+END IF;
+RETURN NEW;
+END;
+$function$
+;
+
 CREATE OR REPLACE VIEW pgl_ddl_deploy.event_trigger_schema AS
 WITH vars AS
 (SELECT
@@ -711,3 +748,5 @@ SELECT
         AND evtenabled IN('O','R','A')
     ) AS is_deployed
 FROM build b;
+
+

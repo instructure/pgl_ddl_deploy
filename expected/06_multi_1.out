@@ -70,12 +70,12 @@ COMMIT
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
  set_name |                         ddl_sql_raw                         |                  ddl_sql_sent                  
 ----------+-------------------------------------------------------------+------------------------------------------------
- test7    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; |  CREATE TABLE foobar.foo(id int primary key); 
- test5    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; |  CREATE TABLE foobar.foo(id int primary key); 
- test3    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; |  CREATE TABLE foobar.foo(id int primary key); 
- test1    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; |  CREATE TABLE foobar.foo(id int primary key); 
- test3    | BEGIN; CREATE TABLE foo(id int primary key); COMMIT;        |  CREATE TABLE foo(id int primary key); 
- test1    | BEGIN; CREATE TABLE foo(id int primary key); COMMIT;        |  CREATE TABLE foo(id int primary key); 
+ test7    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; | CREATE TABLE foobar.foo (id int PRIMARY KEY); 
+ test5    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; | CREATE TABLE foobar.foo (id int PRIMARY KEY); 
+ test3    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; | CREATE TABLE foobar.foo (id int PRIMARY KEY); 
+ test1    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; | CREATE TABLE foobar.foo (id int PRIMARY KEY); 
+ test3    | BEGIN; CREATE TABLE foo(id int primary key); COMMIT;        | CREATE TABLE foo (id int PRIMARY KEY); 
+ test1    | BEGIN; CREATE TABLE foo(id int primary key); COMMIT;        | CREATE TABLE foo (id int PRIMARY KEY); 
  test8    | CREATE SCHEMA foobar;                                       | CREATE SCHEMA foobar;
  test7    | CREATE SCHEMA foobar;                                       | CREATE SCHEMA foobar;
  test6    | CREATE SCHEMA foobar;                                       | CREATE SCHEMA foobar;
@@ -116,14 +116,14 @@ WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 CREATE TABLE
 DROP TABLE
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |                                 ddl_sql_raw                                 |                                ddl_sql_sent                                 
-----------+-----------------------------------------------------------------------------+-----------------------------------------------------------------------------
- test7    | CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE; | CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE;
- test5    | CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE; | CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE;
- test3    | CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE; | CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE;
- test1    | CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE; | CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE;
- test3    | CREATE TABLE foo(id int primary key); DROP TABLE foo CASCADE;               | CREATE TABLE foo(id int primary key); DROP TABLE foo CASCADE;
- test1    | CREATE TABLE foo(id int primary key); DROP TABLE foo CASCADE;               | CREATE TABLE foo(id int primary key); DROP TABLE foo CASCADE;
+ set_name |                                 ddl_sql_raw                                 |                                 ddl_sql_sent                                 
+----------+-----------------------------------------------------------------------------+------------------------------------------------------------------------------
+ test7    | CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE; | CREATE TABLE foobar.foo (id int PRIMARY KEY); DROP TABLE foobar.foo CASCADE;
+ test5    | CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE; | CREATE TABLE foobar.foo (id int PRIMARY KEY); DROP TABLE foobar.foo CASCADE;
+ test3    | CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE; | CREATE TABLE foobar.foo (id int PRIMARY KEY); DROP TABLE foobar.foo CASCADE;
+ test1    | CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE; | CREATE TABLE foobar.foo (id int PRIMARY KEY); DROP TABLE foobar.foo CASCADE;
+ test3    | CREATE TABLE foo(id int primary key); DROP TABLE foo CASCADE;               | CREATE TABLE foo (id int PRIMARY KEY); DROP TABLE foo CASCADE;
+ test1    | CREATE TABLE foo(id int primary key); DROP TABLE foo CASCADE;               | CREATE TABLE foo (id int PRIMARY KEY); DROP TABLE foo CASCADE;
  test8    | DROP TABLE foobar.foo CASCADE;                                              | DROP TABLE foobar.foo CASCADE;
  test7    | DROP TABLE foobar.foo CASCADE;                                              | DROP TABLE foobar.foo CASCADE;
  test6    | DROP TABLE foobar.foo CASCADE;                                              | DROP TABLE foobar.foo CASCADE;
@@ -157,18 +157,18 @@ WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 DROP TABLE
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |                 ddl_sql_raw                  |                 ddl_sql_sent                 
-----------+----------------------------------------------+----------------------------------------------
+ set_name |                 ddl_sql_raw                  |                 ddl_sql_sent                  
+----------+----------------------------------------------+-----------------------------------------------
  test4    | DROP TABLE foo, foobar.foo CASCADE;          | DROP TABLE foo, foobar.foo CASCADE;
  test3    | DROP TABLE foo, foobar.foo CASCADE;          | DROP TABLE foo, foobar.foo CASCADE;
  test2    | DROP TABLE foo, foobar.foo CASCADE;          | DROP TABLE foo, foobar.foo CASCADE;
  test1    | DROP TABLE foo, foobar.foo CASCADE;          | DROP TABLE foo, foobar.foo CASCADE;
- test8    | CREATE TABLE foobar.foo(id int primary key); | CREATE TABLE foobar.foo(id int primary key);
- test7    | CREATE TABLE foobar.foo(id int primary key); | CREATE TABLE foobar.foo(id int primary key);
- test6    | CREATE TABLE foobar.foo(id int primary key); | CREATE TABLE foobar.foo(id int primary key);
- test5    | CREATE TABLE foobar.foo(id int primary key); | CREATE TABLE foobar.foo(id int primary key);
- test4    | CREATE TABLE foobar.foo(id int primary key); | CREATE TABLE foobar.foo(id int primary key);
- test3    | CREATE TABLE foobar.foo(id int primary key); | CREATE TABLE foobar.foo(id int primary key);
+ test8    | CREATE TABLE foobar.foo(id int primary key); | CREATE TABLE foobar.foo (id int PRIMARY KEY);
+ test7    | CREATE TABLE foobar.foo(id int primary key); | CREATE TABLE foobar.foo (id int PRIMARY KEY);
+ test6    | CREATE TABLE foobar.foo(id int primary key); | CREATE TABLE foobar.foo (id int PRIMARY KEY);
+ test5    | CREATE TABLE foobar.foo(id int primary key); | CREATE TABLE foobar.foo (id int PRIMARY KEY);
+ test4    | CREATE TABLE foobar.foo(id int primary key); | CREATE TABLE foobar.foo (id int PRIMARY KEY);
+ test3    | CREATE TABLE foobar.foo(id int primary key); | CREATE TABLE foobar.foo (id int PRIMARY KEY);
 (10 rows)
 
 SELECT set_name, ddl_sql_raw, command_tag, reason FROM pgl_ddl_deploy.unhandled ORDER BY id DESC LIMIT 10;

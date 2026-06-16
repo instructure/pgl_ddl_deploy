@@ -14,73 +14,73 @@ SELECT * FROM check_rep_tables();
 (4 rows)
 
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |               ddl_sql_raw                |               ddl_sql_sent               
-----------+------------------------------------------+------------------------------------------
- test4    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test3    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test2    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test1    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
+ set_name |               ddl_sql_raw                |               ddl_sql_sent                
+----------+------------------------------------------+-------------------------------------------
+ test4    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test3    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test2    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test1    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
 (4 rows)
 
 ALTER TABLE foo ADD COLUMN bla TEXT;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |               ddl_sql_raw                |               ddl_sql_sent               
-----------+------------------------------------------+------------------------------------------
- test4    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test3    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test2    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test1    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test4    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test3    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test2    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test1    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
+ set_name |               ddl_sql_raw                |               ddl_sql_sent                
+----------+------------------------------------------+-------------------------------------------
+ test4    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test3    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test2    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test1    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test4    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test3    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test2    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test1    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
 (8 rows)
 
 INSERT INTO foo (bla) VALUES (1),(2),(3);
 DROP TABLE foo CASCADE;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |               ddl_sql_raw                |               ddl_sql_sent               
-----------+------------------------------------------+------------------------------------------
+ set_name |               ddl_sql_raw                |               ddl_sql_sent                
+----------+------------------------------------------+-------------------------------------------
  test4    | DROP TABLE foo CASCADE;                  | DROP TABLE foo CASCADE;
  test3    | DROP TABLE foo CASCADE;                  | DROP TABLE foo CASCADE;
  test2    | DROP TABLE foo CASCADE;                  | DROP TABLE foo CASCADE;
  test1    | DROP TABLE foo CASCADE;                  | DROP TABLE foo CASCADE;
- test4    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test3    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test2    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test1    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test4    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test3    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
+ test4    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test3    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test2    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test1    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test4    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test3    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
 (10 rows)
 
 CREATE FUNCTION foo() RETURNS INT AS
@@ -89,64 +89,64 @@ SELECT 1;
 $BODY$
 LANGUAGE SQL STABLE;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |             ddl_sql_raw              |             ddl_sql_sent             
-----------+--------------------------------------+--------------------------------------
- test4    | CREATE FUNCTION foo() RETURNS INT AS+| CREATE FUNCTION foo() RETURNS INT AS+
-          | $BODY$                              +| $BODY$                              +
-          | SELECT 1;                           +| SELECT 1;                           +
-          | $BODY$                              +| $BODY$                              +
-          | LANGUAGE SQL STABLE;                 | LANGUAGE SQL STABLE;
- test3    | CREATE FUNCTION foo() RETURNS INT AS+| CREATE FUNCTION foo() RETURNS INT AS+
-          | $BODY$                              +| $BODY$                              +
-          | SELECT 1;                           +| SELECT 1;                           +
-          | $BODY$                              +| $BODY$                              +
-          | LANGUAGE SQL STABLE;                 | LANGUAGE SQL STABLE;
- test2    | CREATE FUNCTION foo() RETURNS INT AS+| CREATE FUNCTION foo() RETURNS INT AS+
-          | $BODY$                              +| $BODY$                              +
-          | SELECT 1;                           +| SELECT 1;                           +
-          | $BODY$                              +| $BODY$                              +
-          | LANGUAGE SQL STABLE;                 | LANGUAGE SQL STABLE;
- test1    | CREATE FUNCTION foo() RETURNS INT AS+| CREATE FUNCTION foo() RETURNS INT AS+
-          | $BODY$                              +| $BODY$                              +
-          | SELECT 1;                           +| SELECT 1;                           +
-          | $BODY$                              +| $BODY$                              +
-          | LANGUAGE SQL STABLE;                 | LANGUAGE SQL STABLE;
+ set_name |             ddl_sql_raw              |              ddl_sql_sent               
+----------+--------------------------------------+-----------------------------------------
+ test4    | CREATE FUNCTION foo() RETURNS INT AS+| CREATE FUNCTION foo() RETURNS int AS $$+
+          | $BODY$                              +| SELECT 1;                              +
+          | SELECT 1;                           +| $$ LANGUAGE sql STABLE;
+          | $BODY$                              +| 
+          | LANGUAGE SQL STABLE;                 | 
+ test3    | CREATE FUNCTION foo() RETURNS INT AS+| CREATE FUNCTION foo() RETURNS int AS $$+
+          | $BODY$                              +| SELECT 1;                              +
+          | SELECT 1;                           +| $$ LANGUAGE sql STABLE;
+          | $BODY$                              +| 
+          | LANGUAGE SQL STABLE;                 | 
+ test2    | CREATE FUNCTION foo() RETURNS INT AS+| CREATE FUNCTION foo() RETURNS int AS $$+
+          | $BODY$                              +| SELECT 1;                              +
+          | SELECT 1;                           +| $$ LANGUAGE sql STABLE;
+          | $BODY$                              +| 
+          | LANGUAGE SQL STABLE;                 | 
+ test1    | CREATE FUNCTION foo() RETURNS INT AS+| CREATE FUNCTION foo() RETURNS int AS $$+
+          | $BODY$                              +| SELECT 1;                              +
+          | SELECT 1;                           +| $$ LANGUAGE sql STABLE;
+          | $BODY$                              +| 
+          | LANGUAGE SQL STABLE;                 | 
  test4    | DROP TABLE foo CASCADE;              | DROP TABLE foo CASCADE;
  test3    | DROP TABLE foo CASCADE;              | DROP TABLE foo CASCADE;
  test2    | DROP TABLE foo CASCADE;              | DROP TABLE foo CASCADE;
  test1    | DROP TABLE foo CASCADE;              | DROP TABLE foo CASCADE;
- test4    | ALTER TABLE foo ADD COLUMN bla TEXT; | ALTER TABLE foo ADD COLUMN bla TEXT;
- test3    | ALTER TABLE foo ADD COLUMN bla TEXT; | ALTER TABLE foo ADD COLUMN bla TEXT;
+ test4    | ALTER TABLE foo ADD COLUMN bla TEXT; | ALTER TABLE foo ADD COLUMN bla text;
+ test3    | ALTER TABLE foo ADD COLUMN bla TEXT; | ALTER TABLE foo ADD COLUMN bla text;
 (10 rows)
 
 ALTER FUNCTION foo() OWNER TO current_user;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
  set_name |                 ddl_sql_raw                 |                ddl_sql_sent                 
 ----------+---------------------------------------------+---------------------------------------------
- test4    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO current_user;
- test3    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO current_user;
- test2    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO current_user;
- test1    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO current_user;
- test4    | CREATE FUNCTION foo() RETURNS INT AS       +| CREATE FUNCTION foo() RETURNS INT AS       +
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
- test3    | CREATE FUNCTION foo() RETURNS INT AS       +| CREATE FUNCTION foo() RETURNS INT AS       +
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
- test2    | CREATE FUNCTION foo() RETURNS INT AS       +| CREATE FUNCTION foo() RETURNS INT AS       +
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
- test1    | CREATE FUNCTION foo() RETURNS INT AS       +| CREATE FUNCTION foo() RETURNS INT AS       +
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
+ test4    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO CURRENT_USER;
+ test3    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO CURRENT_USER;
+ test2    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO CURRENT_USER;
+ test1    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO CURRENT_USER;
+ test4    | CREATE FUNCTION foo() RETURNS INT AS       +| CREATE FUNCTION foo() RETURNS int AS $$    +
+          | $BODY$                                     +| SELECT 1;                                  +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
+ test3    | CREATE FUNCTION foo() RETURNS INT AS       +| CREATE FUNCTION foo() RETURNS int AS $$    +
+          | $BODY$                                     +| SELECT 1;                                  +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
+ test2    | CREATE FUNCTION foo() RETURNS INT AS       +| CREATE FUNCTION foo() RETURNS int AS $$    +
+          | $BODY$                                     +| SELECT 1;                                  +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
+ test1    | CREATE FUNCTION foo() RETURNS INT AS       +| CREATE FUNCTION foo() RETURNS int AS $$    +
+          | $BODY$                                     +| SELECT 1;                                  +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
  test4    | DROP TABLE foo CASCADE;                     | DROP TABLE foo CASCADE;
  test3    | DROP TABLE foo CASCADE;                     | DROP TABLE foo CASCADE;
 (10 rows)
@@ -159,20 +159,20 @@ SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY i
  test3    | DROP FUNCTION foo();                        | DROP FUNCTION foo();
  test2    | DROP FUNCTION foo();                        | DROP FUNCTION foo();
  test1    | DROP FUNCTION foo();                        | DROP FUNCTION foo();
- test4    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO current_user;
- test3    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO current_user;
- test2    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO current_user;
- test1    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO current_user;
- test4    | CREATE FUNCTION foo() RETURNS INT AS       +| CREATE FUNCTION foo() RETURNS INT AS       +
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
- test3    | CREATE FUNCTION foo() RETURNS INT AS       +| CREATE FUNCTION foo() RETURNS INT AS       +
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
+ test4    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO CURRENT_USER;
+ test3    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO CURRENT_USER;
+ test2    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO CURRENT_USER;
+ test1    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO CURRENT_USER;
+ test4    | CREATE FUNCTION foo() RETURNS INT AS       +| CREATE FUNCTION foo() RETURNS int AS $$    +
+          | $BODY$                                     +| SELECT 1;                                  +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
+ test3    | CREATE FUNCTION foo() RETURNS INT AS       +| CREATE FUNCTION foo() RETURNS int AS $$    +
+          | $BODY$                                     +| SELECT 1;                                  +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
 (10 rows)
 
 CREATE VIEW fooview AS
@@ -180,46 +180,46 @@ SELECT 1 AS myfield;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
  set_name |                 ddl_sql_raw                 |                ddl_sql_sent                 
 ----------+---------------------------------------------+---------------------------------------------
- test4    | CREATE VIEW fooview AS                     +| CREATE VIEW fooview AS                     +
-          | SELECT 1 AS myfield;                        | SELECT 1 AS myfield;
- test3    | CREATE VIEW fooview AS                     +| CREATE VIEW fooview AS                     +
-          | SELECT 1 AS myfield;                        | SELECT 1 AS myfield;
- test2    | CREATE VIEW fooview AS                     +| CREATE VIEW fooview AS                     +
-          | SELECT 1 AS myfield;                        | SELECT 1 AS myfield;
- test1    | CREATE VIEW fooview AS                     +| CREATE VIEW fooview AS                     +
-          | SELECT 1 AS myfield;                        | SELECT 1 AS myfield;
+ test4    | CREATE VIEW fooview AS                     +| CREATE VIEW fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;                        | 
+ test3    | CREATE VIEW fooview AS                     +| CREATE VIEW fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;                        | 
+ test2    | CREATE VIEW fooview AS                     +| CREATE VIEW fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;                        | 
+ test1    | CREATE VIEW fooview AS                     +| CREATE VIEW fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;                        | 
  test4    | DROP FUNCTION foo();                        | DROP FUNCTION foo();
  test3    | DROP FUNCTION foo();                        | DROP FUNCTION foo();
  test2    | DROP FUNCTION foo();                        | DROP FUNCTION foo();
  test1    | DROP FUNCTION foo();                        | DROP FUNCTION foo();
- test4    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO current_user;
- test3    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO current_user;
+ test4    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO CURRENT_USER;
+ test3    | ALTER FUNCTION foo() OWNER TO current_user; | ALTER FUNCTION foo() OWNER TO CURRENT_USER;
 (10 rows)
 
 ALTER VIEW fooview RENAME TO barview;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |              ddl_sql_raw              |             ddl_sql_sent              
-----------+---------------------------------------+---------------------------------------
+ set_name |              ddl_sql_raw              |                ddl_sql_sent                 
+----------+---------------------------------------+---------------------------------------------
  test4    | ALTER VIEW fooview RENAME TO barview; | ALTER VIEW fooview RENAME TO barview;
  test3    | ALTER VIEW fooview RENAME TO barview; | ALTER VIEW fooview RENAME TO barview;
  test2    | ALTER VIEW fooview RENAME TO barview; | ALTER VIEW fooview RENAME TO barview;
  test1    | ALTER VIEW fooview RENAME TO barview; | ALTER VIEW fooview RENAME TO barview;
- test4    | CREATE VIEW fooview AS               +| CREATE VIEW fooview AS               +
-          | SELECT 1 AS myfield;                  | SELECT 1 AS myfield;
- test3    | CREATE VIEW fooview AS               +| CREATE VIEW fooview AS               +
-          | SELECT 1 AS myfield;                  | SELECT 1 AS myfield;
- test2    | CREATE VIEW fooview AS               +| CREATE VIEW fooview AS               +
-          | SELECT 1 AS myfield;                  | SELECT 1 AS myfield;
- test1    | CREATE VIEW fooview AS               +| CREATE VIEW fooview AS               +
-          | SELECT 1 AS myfield;                  | SELECT 1 AS myfield;
+ test4    | CREATE VIEW fooview AS               +| CREATE VIEW fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;                  | 
+ test3    | CREATE VIEW fooview AS               +| CREATE VIEW fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;                  | 
+ test2    | CREATE VIEW fooview AS               +| CREATE VIEW fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;                  | 
+ test1    | CREATE VIEW fooview AS               +| CREATE VIEW fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;                  | 
  test4    | DROP FUNCTION foo();                  | DROP FUNCTION foo();
  test3    | DROP FUNCTION foo();                  | DROP FUNCTION foo();
 (10 rows)
 
 DROP VIEW barview;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |              ddl_sql_raw              |             ddl_sql_sent              
-----------+---------------------------------------+---------------------------------------
+ set_name |              ddl_sql_raw              |                ddl_sql_sent                 
+----------+---------------------------------------+---------------------------------------------
  test4    | DROP VIEW barview;                    | DROP VIEW barview;
  test3    | DROP VIEW barview;                    | DROP VIEW barview;
  test2    | DROP VIEW barview;                    | DROP VIEW barview;
@@ -228,10 +228,10 @@ SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY i
  test3    | ALTER VIEW fooview RENAME TO barview; | ALTER VIEW fooview RENAME TO barview;
  test2    | ALTER VIEW fooview RENAME TO barview; | ALTER VIEW fooview RENAME TO barview;
  test1    | ALTER VIEW fooview RENAME TO barview; | ALTER VIEW fooview RENAME TO barview;
- test4    | CREATE VIEW fooview AS               +| CREATE VIEW fooview AS               +
-          | SELECT 1 AS myfield;                  | SELECT 1 AS myfield;
- test3    | CREATE VIEW fooview AS               +| CREATE VIEW fooview AS               +
-          | SELECT 1 AS myfield;                  | SELECT 1 AS myfield;
+ test4    | CREATE VIEW fooview AS               +| CREATE VIEW fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;                  | 
+ test3    | CREATE VIEW fooview AS               +| CREATE VIEW fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;                  | 
 (10 rows)
 
 CREATE SEQUENCE foo;
@@ -313,34 +313,34 @@ SELECT * FROM check_rep_tables();
 (8 rows)
 
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |                   ddl_sql_raw                   |                  ddl_sql_sent                   
-----------+-------------------------------------------------+-------------------------------------------------
- test8    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test7    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test6    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test5    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test4    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test3    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test2    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test1    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
+ set_name |                   ddl_sql_raw                   |                   ddl_sql_sent                   
+----------+-------------------------------------------------+--------------------------------------------------
+ test8    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test7    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test6    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test5    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test4    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test3    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test2    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test1    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
  test8    | CREATE SCHEMA foobar;                           | CREATE SCHEMA foobar;
  test7    | CREATE SCHEMA foobar;                           | CREATE SCHEMA foobar;
 (10 rows)
 
 ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |                   ddl_sql_raw                   |                  ddl_sql_sent                   
-----------+-------------------------------------------------+-------------------------------------------------
- test8    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test7    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test6    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test5    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test4    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test3    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test2    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test1    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test8    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test7    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
+ set_name |                   ddl_sql_raw                   |                   ddl_sql_sent                   
+----------+-------------------------------------------------+--------------------------------------------------
+ test8    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test7    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test6    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test5    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test4    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test3    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test2    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test1    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test8    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test7    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
 (10 rows)
 
 INSERT INTO foobar.foo (bla) VALUES (1),(2),(3);
@@ -356,8 +356,8 @@ SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY i
  test3    | DROP TABLE foobar.foo CASCADE;              | DROP TABLE foobar.foo CASCADE;
  test2    | DROP TABLE foobar.foo CASCADE;              | DROP TABLE foobar.foo CASCADE;
  test1    | DROP TABLE foobar.foo CASCADE;              | DROP TABLE foobar.foo CASCADE;
- test8    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT; | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test7    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT; | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
+ test8    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT; | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test7    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT; | ALTER TABLE foobar.foo ADD COLUMN bla text;
 (10 rows)
 
 CREATE FUNCTION foobar.foo() RETURNS INT AS
@@ -366,48 +366,48 @@ SELECT 1;
 $BODY$
 LANGUAGE SQL STABLE;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |                 ddl_sql_raw                 |                ddl_sql_sent                 
-----------+---------------------------------------------+---------------------------------------------
- test8    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS INT AS+
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
- test7    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS INT AS+
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
- test6    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS INT AS+
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
- test5    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS INT AS+
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
- test4    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS INT AS+
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
- test3    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS INT AS+
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
- test2    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS INT AS+
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
- test1    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS INT AS+
-          | $BODY$                                     +| $BODY$                                     +
-          | SELECT 1;                                  +| SELECT 1;                                  +
-          | $BODY$                                     +| $BODY$                                     +
-          | LANGUAGE SQL STABLE;                        | LANGUAGE SQL STABLE;
+ set_name |                 ddl_sql_raw                 |                  ddl_sql_sent                  
+----------+---------------------------------------------+------------------------------------------------
+ test8    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS int AS $$+
+          | $BODY$                                     +| SELECT 1;                                     +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
+ test7    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS int AS $$+
+          | $BODY$                                     +| SELECT 1;                                     +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
+ test6    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS int AS $$+
+          | $BODY$                                     +| SELECT 1;                                     +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
+ test5    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS int AS $$+
+          | $BODY$                                     +| SELECT 1;                                     +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
+ test4    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS int AS $$+
+          | $BODY$                                     +| SELECT 1;                                     +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
+ test3    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS int AS $$+
+          | $BODY$                                     +| SELECT 1;                                     +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
+ test2    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS int AS $$+
+          | $BODY$                                     +| SELECT 1;                                     +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
+ test1    | CREATE FUNCTION foobar.foo() RETURNS INT AS+| CREATE FUNCTION foobar.foo() RETURNS int AS $$+
+          | $BODY$                                     +| SELECT 1;                                     +
+          | SELECT 1;                                  +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                     +| 
+          | LANGUAGE SQL STABLE;                        | 
  test8    | DROP TABLE foobar.foo CASCADE;              | DROP TABLE foobar.foo CASCADE;
  test7    | DROP TABLE foobar.foo CASCADE;              | DROP TABLE foobar.foo CASCADE;
 (10 rows)
@@ -416,24 +416,24 @@ ALTER FUNCTION foobar.foo() OWNER TO current_user;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
  set_name |                    ddl_sql_raw                     |                    ddl_sql_sent                    
 ----------+----------------------------------------------------+----------------------------------------------------
- test8    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO current_user;
- test7    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO current_user;
- test6    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO current_user;
- test5    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO current_user;
- test4    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO current_user;
- test3    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO current_user;
- test2    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO current_user;
- test1    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO current_user;
- test8    | CREATE FUNCTION foobar.foo() RETURNS INT AS       +| CREATE FUNCTION foobar.foo() RETURNS INT AS       +
-          | $BODY$                                            +| $BODY$                                            +
-          | SELECT 1;                                         +| SELECT 1;                                         +
-          | $BODY$                                            +| $BODY$                                            +
-          | LANGUAGE SQL STABLE;                               | LANGUAGE SQL STABLE;
- test7    | CREATE FUNCTION foobar.foo() RETURNS INT AS       +| CREATE FUNCTION foobar.foo() RETURNS INT AS       +
-          | $BODY$                                            +| $BODY$                                            +
-          | SELECT 1;                                         +| SELECT 1;                                         +
-          | $BODY$                                            +| $BODY$                                            +
-          | LANGUAGE SQL STABLE;                               | LANGUAGE SQL STABLE;
+ test8    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO CURRENT_USER;
+ test7    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO CURRENT_USER;
+ test6    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO CURRENT_USER;
+ test5    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO CURRENT_USER;
+ test4    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO CURRENT_USER;
+ test3    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO CURRENT_USER;
+ test2    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO CURRENT_USER;
+ test1    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO CURRENT_USER;
+ test8    | CREATE FUNCTION foobar.foo() RETURNS INT AS       +| CREATE FUNCTION foobar.foo() RETURNS int AS $$    +
+          | $BODY$                                            +| SELECT 1;                                         +
+          | SELECT 1;                                         +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                            +| 
+          | LANGUAGE SQL STABLE;                               | 
+ test7    | CREATE FUNCTION foobar.foo() RETURNS INT AS       +| CREATE FUNCTION foobar.foo() RETURNS int AS $$    +
+          | $BODY$                                            +| SELECT 1;                                         +
+          | SELECT 1;                                         +| $$ LANGUAGE sql STABLE;
+          | $BODY$                                            +| 
+          | LANGUAGE SQL STABLE;                               | 
 (10 rows)
 
 DROP FUNCTION foobar.foo();
@@ -448,39 +448,39 @@ SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY i
  test3    | DROP FUNCTION foobar.foo();                        | DROP FUNCTION foobar.foo();
  test2    | DROP FUNCTION foobar.foo();                        | DROP FUNCTION foobar.foo();
  test1    | DROP FUNCTION foobar.foo();                        | DROP FUNCTION foobar.foo();
- test8    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO current_user;
- test7    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO current_user;
+ test8    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO CURRENT_USER;
+ test7    | ALTER FUNCTION foobar.foo() OWNER TO current_user; | ALTER FUNCTION foobar.foo() OWNER TO CURRENT_USER;
 (10 rows)
 
 CREATE VIEW foobar.fooview AS
 SELECT 1 AS myfield;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |          ddl_sql_raw          |         ddl_sql_sent          
-----------+-------------------------------+-------------------------------
- test8    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS+
-          | SELECT 1 AS myfield;          | SELECT 1 AS myfield;
- test7    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS+
-          | SELECT 1 AS myfield;          | SELECT 1 AS myfield;
- test6    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS+
-          | SELECT 1 AS myfield;          | SELECT 1 AS myfield;
- test5    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS+
-          | SELECT 1 AS myfield;          | SELECT 1 AS myfield;
- test4    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS+
-          | SELECT 1 AS myfield;          | SELECT 1 AS myfield;
- test3    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS+
-          | SELECT 1 AS myfield;          | SELECT 1 AS myfield;
- test2    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS+
-          | SELECT 1 AS myfield;          | SELECT 1 AS myfield;
- test1    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS+
-          | SELECT 1 AS myfield;          | SELECT 1 AS myfield;
+ set_name |          ddl_sql_raw          |                    ddl_sql_sent                    
+----------+-------------------------------+----------------------------------------------------
+ test8    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;          | 
+ test7    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;          | 
+ test6    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;          | 
+ test5    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;          | 
+ test4    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;          | 
+ test3    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;          | 
+ test2    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;          | 
+ test1    | CREATE VIEW foobar.fooview AS+| CREATE VIEW foobar.fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;          | 
  test8    | DROP FUNCTION foobar.foo();   | DROP FUNCTION foobar.foo();
  test7    | DROP FUNCTION foobar.foo();   | DROP FUNCTION foobar.foo();
 (10 rows)
 
 ALTER VIEW foobar.fooview RENAME TO barview;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |                 ddl_sql_raw                  |                 ddl_sql_sent                 
-----------+----------------------------------------------+----------------------------------------------
+ set_name |                 ddl_sql_raw                  |                    ddl_sql_sent                    
+----------+----------------------------------------------+----------------------------------------------------
  test8    | ALTER VIEW foobar.fooview RENAME TO barview; | ALTER VIEW foobar.fooview RENAME TO barview;
  test7    | ALTER VIEW foobar.fooview RENAME TO barview; | ALTER VIEW foobar.fooview RENAME TO barview;
  test6    | ALTER VIEW foobar.fooview RENAME TO barview; | ALTER VIEW foobar.fooview RENAME TO barview;
@@ -489,10 +489,10 @@ SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY i
  test3    | ALTER VIEW foobar.fooview RENAME TO barview; | ALTER VIEW foobar.fooview RENAME TO barview;
  test2    | ALTER VIEW foobar.fooview RENAME TO barview; | ALTER VIEW foobar.fooview RENAME TO barview;
  test1    | ALTER VIEW foobar.fooview RENAME TO barview; | ALTER VIEW foobar.fooview RENAME TO barview;
- test8    | CREATE VIEW foobar.fooview AS               +| CREATE VIEW foobar.fooview AS               +
-          | SELECT 1 AS myfield;                         | SELECT 1 AS myfield;
- test7    | CREATE VIEW foobar.fooview AS               +| CREATE VIEW foobar.fooview AS               +
-          | SELECT 1 AS myfield;                         | SELECT 1 AS myfield;
+ test8    | CREATE VIEW foobar.fooview AS               +| CREATE VIEW foobar.fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;                         | 
+ test7    | CREATE VIEW foobar.fooview AS               +| CREATE VIEW foobar.fooview AS SELECT 1 AS myfield;
+          | SELECT 1 AS myfield;                         | 
 (10 rows)
 
 DROP VIEW foobar.barview;
