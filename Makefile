@@ -14,15 +14,15 @@ DATA = pgl_ddl_deploy--1.0.sql pgl_ddl_deploy--1.0--1.1.sql \
         pgl_ddl_deploy--2.4.sql
 MODULES = ddl_deparse
 MODULE_big = pgl_ddl_deploy
-OBJS = src/postgres_deparse.11.o \
-       src/postgres_deparse.12.o \
-       src/postgres_deparse.13.o \
-       src/postgres_deparse.14.o \
-       src/postgres_deparse.15.o \
-       src/postgres_deparse.16.o \
-       src/postgres_deparse.17.o \
-       src/postgres_deparse.18.o \
-       src/pgl_ddl_deploy.o
+OBJS = postgres_deparse.11.o \
+       postgres_deparse.12.o \
+       postgres_deparse.13.o \
+       postgres_deparse.14.o \
+       postgres_deparse.15.o \
+       postgres_deparse.16.o \
+       postgres_deparse.17.o \
+       postgres_deparse.18.o \
+       pgl_ddl_deploy.o
 
 REGRESS := 01_create_ext 02_setup 03_add_configs 04_deploy 04_deploy_update \
            05_allowed 06_multi 07_edges 08_ignored \
