@@ -68,14 +68,14 @@ BEGIN
 CREATE TABLE
 COMMIT
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |                         ddl_sql_raw                         |                  ddl_sql_sent                  
-----------+-------------------------------------------------------------+------------------------------------------------
- test7    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; | CREATE TABLE foobar.foo (id int PRIMARY KEY); 
- test5    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; | CREATE TABLE foobar.foo (id int PRIMARY KEY); 
- test3    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; | CREATE TABLE foobar.foo (id int PRIMARY KEY); 
- test1    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; | CREATE TABLE foobar.foo (id int PRIMARY KEY); 
- test3    | BEGIN; CREATE TABLE foo(id int primary key); COMMIT;        | CREATE TABLE foo (id int PRIMARY KEY); 
- test1    | BEGIN; CREATE TABLE foo(id int primary key); COMMIT;        | CREATE TABLE foo (id int PRIMARY KEY); 
+ set_name |                         ddl_sql_raw                         |                 ddl_sql_sent                  
+----------+-------------------------------------------------------------+-----------------------------------------------
+ test7    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; | CREATE TABLE foobar.foo (id int PRIMARY KEY);
+ test5    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; | CREATE TABLE foobar.foo (id int PRIMARY KEY);
+ test3    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; | CREATE TABLE foobar.foo (id int PRIMARY KEY);
+ test1    | BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT; | CREATE TABLE foobar.foo (id int PRIMARY KEY);
+ test3    | BEGIN; CREATE TABLE foo(id int primary key); COMMIT;        | CREATE TABLE foo (id int PRIMARY KEY);
+ test1    | BEGIN; CREATE TABLE foo(id int primary key); COMMIT;        | CREATE TABLE foo (id int PRIMARY KEY);
  test8    | CREATE SCHEMA foobar;                                       | CREATE SCHEMA foobar;
  test7    | CREATE SCHEMA foobar;                                       | CREATE SCHEMA foobar;
  test6    | CREATE SCHEMA foobar;                                       | CREATE SCHEMA foobar;

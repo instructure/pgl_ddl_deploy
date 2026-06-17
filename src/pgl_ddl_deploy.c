@@ -98,6 +98,7 @@ rewrite_transaction_safe(PG_FUNCTION_ARGS)
     ListCell        *parsetree_item;
     StringInfoData  str;
 	text	        *result;
+    bool            isFirst = true;
     initStringInfo(&str);
     
     /*
@@ -126,12 +127,16 @@ rewrite_transaction_safe(PG_FUNCTION_ARGS)
             dropStmt->concurrent = false;
         }
         if(shouldEmit) {
-            deparseRawStmt(&str, parsetree);
-            appendStringInfoChar(&str, ';');
-            if(foreach_current_index(parsetree_item) < list_length(parsetree_list) - 1)
+            if(!isFirst)
             {
                 appendStringInfoChar(&str, ' ');
             }
+            else
+            {
+                isFirst = false;
+            }
+            deparseRawStmt(&str, parsetree);
+            appendStringInfoChar(&str, ';');
         }
     }
 	result = cstring_to_text(str.data);
