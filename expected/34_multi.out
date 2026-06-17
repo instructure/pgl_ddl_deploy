@@ -7,8 +7,6 @@ WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
-CREATE TABLE
-INSERT 0 3
 DROP TABLE
 \! PGOPTIONS='--client-min-messages=warning' psql -d contrib_regression  -c "CREATE TABLE foobar.foo(id int primary key); INSERT INTO foobar.foo (id) VALUES (1),(2),(3); DROP TABLE foobar.foo;"
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
@@ -19,8 +17,6 @@ WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
-CREATE TABLE
-INSERT 0 3
 DROP TABLE
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
  set_name |        ddl_sql_raw        |       ddl_sql_sent        
@@ -56,16 +52,12 @@ SELECT set_name, ddl_sql_raw, command_tag, reason FROM pgl_ddl_deploy.unhandled 
 \! PGOPTIONS='--client-min-messages=warning' psql -d contrib_regression  -c "BEGIN; CREATE TABLE foo(id int primary key); COMMIT;"
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
-BEGIN
-CREATE TABLE
 COMMIT
 \! PGOPTIONS='--client-min-messages=warning' psql -d contrib_regression  -c "BEGIN; CREATE TABLE foobar.foo(id int primary key); COMMIT;"
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
-BEGIN
-CREATE TABLE
 COMMIT
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
  set_name |                         ddl_sql_raw                         |                  ddl_sql_sent                  
@@ -106,14 +98,12 @@ DROP TABLE
 \! PGOPTIONS='--client-min-messages=warning' psql -d contrib_regression  -c "CREATE TABLE foo(id int primary key); DROP TABLE foo CASCADE;"
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
-CREATE TABLE
 DROP TABLE
 \! PGOPTIONS='--client-min-messages=warning' psql -d contrib_regression  -c "CREATE TABLE foobar.foo(id int primary key); DROP TABLE foobar.foo CASCADE;"
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
 WARNING:  Unhandled deployment logged in pgl_ddl_deploy.unhandled
-CREATE TABLE
 DROP TABLE
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
  set_name |                                 ddl_sql_raw                                 |                                 ddl_sql_sent                                 
