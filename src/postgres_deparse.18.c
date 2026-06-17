@@ -1,4 +1,7 @@
-// From https://github.com/pganalyze/libpg_query/tree/156705b347d347c154fdfddf9341c07a9fa73dc2
+#include "pg_config.h"
+#if(PG_MAJORVERSION_NUM == 18)
+
+// From https://github.com/pganalyze/libpg_query/blob/18.0.0/src/postgres_deparse.c
 
 // Copyright (c) 2015, Lukas Fittl <lukas@fittl.com>
 // Copyright (c) 2016-2023, Duboce Labs, Inc. (pganalyze) <team@pganalyze.com>
@@ -12251,3 +12254,4 @@ static void deparseStmt(DeparseState *state, Node *node)
 	if (!skip_push_pop)
 		deparseStateDecreaseNestingLevel(state, parent_level);
 }
+#endif

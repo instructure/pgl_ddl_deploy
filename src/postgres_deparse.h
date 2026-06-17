@@ -61,6 +61,10 @@ typedef struct StringInfoData *StringInfo;
 struct RawStmt;
 
 extern void deparseRawStmt(StringInfo str, struct RawStmt *raw_stmt);
+#if (PG_MAJORVERSION_NUM >= 18)
 extern void deparseRawStmtOpts(StringInfo str, struct RawStmt *raw_stmt, PostgresDeparseOpts *opts);
+#elif (PG_MAJORVERSION_NUM >= 17)
+extern void deparseRawStmtOpts(StringInfo str, struct RawStmt *raw_stmt, PostgresDeparseOpts opts);
+#endif
 
 #endif
