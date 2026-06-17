@@ -6,6 +6,39 @@
 ALTER TABLE pgl_ddl_deploy.set_configs ADD COLUMN include_indexes BOOLEAN NOT NULL DEFAULT FALSE;
 
 
+CREATE OR REPLACE FUNCTION pgl_ddl_deploy.common_exclude_alter_table_subcommands()
+RETURNS TEXT[] AS
+$BODY$
+SELECT ARRAY[
+  'ADD CONSTRAINT',
+  '(re) ADD CONSTRAINT',
+  'ALTER CONSTRAINT',
+  'VALIDATE CONSTRAINT',
+  'ADD (processed) CONSTRAINT',
+  'ADD CONSTRAINT (using index)',
+  'DROP CONSTRAINT',
+  'SET LOGGED',
+  'SET UNLOGGED',
+  'SET TABLESPACE',
+  'SET RELOPTIONS',
+  'RESET RELOPTIONS',
+  'REPLACE RELOPTIONS',
+  'ENABLE TRIGGER',
+  'ENABLE TRIGGER (always)',
+  'ENABLE TRIGGER (replica)',
+  'DISABLE TRIGGER',
+  'ENABLE TRIGGER (all)',
+  'DISABLE TRIGGER (all)',
+  'ENABLE TRIGGER (user)',
+  'DISABLE TRIGGER (user)',
+  'ENABLE RULE',
+  'ENABLE RULE (always)',
+  'ENABLE RULE (replica)',
+  'DISABLE RULE',
+  'SET OPTIONS']::TEXT[];
+$BODY$
+LANGUAGE SQL IMMUTABLE;
+
 CREATE OR REPLACE FUNCTION pgl_ddl_deploy.rewrite_transaction_safe(p_sql text)
  RETURNS text
  LANGUAGE c
@@ -313,7 +346,8 @@ WITH vars AS
   $BUILD$::TEXT AS shared_mixed_obj_logic,
   $BUILD$
   -- Filter out purely PG-internal triggers (alas, "pg_event_trigger_dropped_objects" does not expose "tgisinternal", so we must filter by name)
-  (SELECT * FROM pg_event_trigger_dropped_objects() WHERE address_names[array_upper(address_names, 1)] NOT LIKE 'RI_ConstraintTrigger_a_%' AND address_names[array_upper(address_names, 1)] NOT LIKE 'RI_ConstraintTrigger_c_%')
+  -- Also filter out toast tables since if there are any non-toast operations the toast ones are almost certainly internally generated
+  (SELECT * FROM pg_event_trigger_dropped_objects() WHERE address_names[array_upper(address_names, 1)] NOT LIKE 'RI_ConstraintTrigger_a_%' AND address_names[array_upper(address_names, 1)] NOT LIKE 'RI_ConstraintTrigger_c_%'  AND schema_name <> 'pg_toast')
   $BUILD$::TEXT AS dropped_objects_query,
 
   $BUILD$

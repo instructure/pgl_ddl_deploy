@@ -52,18 +52,18 @@ SELECT set_name, is_deployed FROM pgl_ddl_deploy.event_trigger_schema ORDER BY i
 CREATE TABLE foobar (id serial primary key);
 DROP TABLE foobar;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |           ddl_sql_raw            |           ddl_sql_sent           
-----------+----------------------------------+----------------------------------
- test4    | DROP SCHEMA special;             | DROP SCHEMA special;
- test3    | DROP SCHEMA special;             | DROP SCHEMA special;
- test2    | DROP SCHEMA special;             | DROP SCHEMA special;
- test1    | DROP SCHEMA special;             | DROP SCHEMA special;
- test4    | DROP TABLE special.barz CASCADE; | DROP TABLE special.barz CASCADE;
- test3    | DROP TABLE special.barz CASCADE; | DROP TABLE special.barz CASCADE;
- test2    | DROP TABLE special.barz CASCADE; | DROP TABLE special.barz CASCADE;
- test1    | DROP TABLE special.barz CASCADE; | DROP TABLE special.barz CASCADE;
- test4    | DROP TABLE special.fooz CASCADE; | DROP TABLE special.fooz CASCADE;
- test3    | DROP TABLE special.fooz CASCADE; | DROP TABLE special.fooz CASCADE;
+ set_name |                                              ddl_sql_raw                                              |                                             ddl_sql_sent                                              
+----------+-------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------
+ test4    | DROP TABLE special.barz CASCADE;                                                                      | DROP TABLE special.barz CASCADE;
+ test3    | DROP TABLE special.barz CASCADE;                                                                      | DROP TABLE special.barz CASCADE;
+ test2    | DROP TABLE special.barz CASCADE;                                                                      | DROP TABLE special.barz CASCADE;
+ test1    | DROP TABLE special.barz CASCADE;                                                                      | DROP TABLE special.barz CASCADE;
+ test4    | DROP TABLE special.fooz CASCADE;                                                                      | DROP TABLE special.fooz CASCADE;
+ test3    | DROP TABLE special.fooz CASCADE;                                                                      | DROP TABLE special.fooz CASCADE;
+ test2    | DROP TABLE special.fooz CASCADE;                                                                      | DROP TABLE special.fooz CASCADE;
+ test1    | DROP TABLE special.fooz CASCADE;                                                                      | DROP TABLE special.fooz CASCADE;
+ test4    | ALTER TABLE special.fooz ADD CONSTRAINT coolness FOREIGN KEY (bar_id) REFERENCES special.barz (id_3); | ALTER TABLE special.fooz ADD CONSTRAINT coolness FOREIGN KEY (bar_id) REFERENCES special.barz (id_3);
+ test3    | ALTER TABLE special.fooz ADD CONSTRAINT coolness FOREIGN KEY (bar_id) REFERENCES special.barz (id_3); | ALTER TABLE special.fooz ADD CONSTRAINT coolness FOREIGN KEY (bar_id) REFERENCES special.barz (id_3);
 (10 rows)
 
 --Re-deploy and check again what shows as deployed
@@ -112,7 +112,7 @@ SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY i
  test3    | CREATE TABLE foobar (id serial primary key); | CREATE TABLE foobar (id serial PRIMARY KEY);
  test2    | CREATE TABLE foobar (id serial primary key); | CREATE TABLE foobar (id serial PRIMARY KEY);
  test1    | CREATE TABLE foobar (id serial primary key); | CREATE TABLE foobar (id serial PRIMARY KEY);
- test4    | DROP SCHEMA special;                         | DROP SCHEMA special;
- test3    | DROP SCHEMA special;                         | DROP SCHEMA special;
+ test4    | DROP TABLE special.barz CASCADE;             | DROP TABLE special.barz CASCADE;
+ test3    | DROP TABLE special.barz CASCADE;             | DROP TABLE special.barz CASCADE;
 (10 rows)
 

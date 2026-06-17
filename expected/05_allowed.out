@@ -566,18 +566,18 @@ SELECT * FROM check_rep_tables();
 (0 rows)
 
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |         ddl_sql_raw         |        ddl_sql_sent         
-----------+-----------------------------+-----------------------------
- test8    | DROP SCHEMA foobar CASCADE; | DROP SCHEMA foobar CASCADE;
- test7    | DROP SCHEMA foobar CASCADE; | DROP SCHEMA foobar CASCADE;
- test6    | DROP SCHEMA foobar CASCADE; | DROP SCHEMA foobar CASCADE;
- test5    | DROP SCHEMA foobar CASCADE; | DROP SCHEMA foobar CASCADE;
- test4    | DROP SCHEMA foobar CASCADE; | DROP SCHEMA foobar CASCADE;
- test3    | DROP SCHEMA foobar CASCADE; | DROP SCHEMA foobar CASCADE;
- test2    | DROP SCHEMA foobar CASCADE; | DROP SCHEMA foobar CASCADE;
- test1    | DROP SCHEMA foobar CASCADE; | DROP SCHEMA foobar CASCADE;
- test8    | DROP SEQUENCE foobar.foo;   | DROP SEQUENCE foobar.foo;
- test7    | DROP SEQUENCE foobar.foo;   | DROP SEQUENCE foobar.foo;
+ set_name |            ddl_sql_raw             |            ddl_sql_sent            
+----------+------------------------------------+------------------------------------
+ test8    | DROP SEQUENCE foobar.foo;          | DROP SEQUENCE foobar.foo;
+ test7    | DROP SEQUENCE foobar.foo;          | DROP SEQUENCE foobar.foo;
+ test6    | DROP SEQUENCE foobar.foo;          | DROP SEQUENCE foobar.foo;
+ test5    | DROP SEQUENCE foobar.foo;          | DROP SEQUENCE foobar.foo;
+ test4    | DROP SEQUENCE foobar.foo;          | DROP SEQUENCE foobar.foo;
+ test3    | DROP SEQUENCE foobar.foo;          | DROP SEQUENCE foobar.foo;
+ test2    | DROP SEQUENCE foobar.foo;          | DROP SEQUENCE foobar.foo;
+ test1    | DROP SEQUENCE foobar.foo;          | DROP SEQUENCE foobar.foo;
+ test8    | ALTER SEQUENCE foobar.foo RESTART; | ALTER SEQUENCE foobar.foo RESTART;
+ test7    | ALTER SEQUENCE foobar.foo RESTART; | ALTER SEQUENCE foobar.foo RESTART;
 (10 rows)
 
 SELECT * FROM pgl_ddl_deploy.unhandled;

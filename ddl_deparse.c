@@ -104,7 +104,7 @@ get_altertable_subcmdinfo(PG_FUNCTION_ARGS)
 				strtype = "ADD OIDS";
 				break;
 			case AT_AddOidsRecurse:
-				strtype = "ADD OIDS (and recurse)";
+				strtype = "ADD OIDS";
 				break;
 #endif
 #if PG_VERSION_NUM >= 120000 && PG_VERSION_NUM < 180000
@@ -119,19 +119,19 @@ get_altertable_subcmdinfo(PG_FUNCTION_ARGS)
 #endif
 #if PG_VERSION_NUM < 160000
 			case AT_AddColumnRecurse:
-				strtype = "ADD COLUMN (and recurse)";
+				strtype = "ADD COLUMN";
 				break;
 			case AT_DropColumnRecurse:
-				strtype = "DROP COLUMN (and recurse)";
+				strtype = "DROP COLUMN";
 				break;
 			case AT_AddConstraintRecurse:
-				strtype = "ADD CONSTRAINT (and recurse)";
+				strtype = "ADD CONSTRAINT";
 				break;
 			case AT_ValidateConstraintRecurse:
-				strtype = "VALIDATE CONSTRAINT (and recurse)";
+				strtype = "VALIDATE CONSTRAINT";
 				break;
 			case AT_DropConstraintRecurse:
-				strtype = "DROP CONSTRAINT (and recurse)";
+				strtype = "DROP CONSTRAINT";
 				break;
 #endif
 #if PG_VERSION_NUM >= 170000

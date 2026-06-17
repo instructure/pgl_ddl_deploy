@@ -42,6 +42,7 @@ https://innovation.enova.com/pursuing-postgres-ddl-replication/
 ### Release 2.4
 Summary of changes:
 * Support for replicating index DDL
+* Prevent DDL that internally touches toast tables from being silently dropped
 
 ### Release 2.2
 Summary of changes:

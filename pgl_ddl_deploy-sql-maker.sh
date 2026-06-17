@@ -37,6 +37,7 @@ create_update_file_with_header
 
 # Add view and function changes
 add_file schema/2.4.sql $update_file
+add_file functions/common_exclude_alter_table_subcommands.sql $update_file
 add_file functions/rewrite_transaction_safe.sql $update_file
 add_file functions/set_tag_defaults.sql $update_file
 add_file views/event_trigger_schema.sql $update_file
