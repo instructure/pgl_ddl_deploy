@@ -17,9 +17,9 @@ SET search_path TO public;
 SET ROLE test_pgl_ddl_deploy;
 CREATE TABLE foo(id serial primary key, bla int);
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |                    ddl_sql_raw                    |                   ddl_sql_sent                    
-----------+---------------------------------------------------+---------------------------------------------------
- test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo(id serial primary key, bla int);
+ set_name |                    ddl_sql_raw                    |                    ddl_sql_sent                    
+----------+---------------------------------------------------+----------------------------------------------------
+ test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo (id serial PRIMARY KEY, bla int);
 (1 row)
 
 GRANT SELECT ON foo TO PUBLIC; 
@@ -27,10 +27,10 @@ SELECT c.set_name, ddl_sql_raw, ddl_sql_sent, c.include_everything
 FROM pgl_ddl_deploy.events e
 INNER JOIN pgl_ddl_deploy.set_configs c ON c.id = e.set_config_id
 ORDER BY e.id DESC LIMIT 10;
- set_name |                    ddl_sql_raw                    |                   ddl_sql_sent                    | include_everything 
-----------+---------------------------------------------------+---------------------------------------------------+--------------------
- test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT SELECT ON foo TO PUBLIC;                    | t
- test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo(id serial primary key, bla int); | f
+ set_name |                    ddl_sql_raw                    |                    ddl_sql_sent                    | include_everything 
+----------+---------------------------------------------------+----------------------------------------------------+--------------------
+ test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT select ON foo TO public;                     | t
+ test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo (id serial PRIMARY KEY, bla int); | f
 (2 rows)
 
 INSERT INTO foo (bla) VALUES (1),(2),(3);
@@ -40,12 +40,12 @@ SELECT c.set_name, ddl_sql_raw, ddl_sql_sent, c.include_everything
 FROM pgl_ddl_deploy.events e
 INNER JOIN pgl_ddl_deploy.set_configs c ON c.id = e.set_config_id
 ORDER BY e.id DESC LIMIT 10;
- set_name |                    ddl_sql_raw                    |                   ddl_sql_sent                    | include_everything 
-----------+---------------------------------------------------+---------------------------------------------------+--------------------
- test1    | DROP TABLE foo CASCADE;                           | DROP TABLE foo CASCADE;                           | f
- test1    | REVOKE INSERT ON foo FROM PUBLIC;                 | REVOKE INSERT ON foo FROM PUBLIC;                 | t
- test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT SELECT ON foo TO PUBLIC;                    | t
- test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo(id serial primary key, bla int); | f
+ set_name |                    ddl_sql_raw                    |                    ddl_sql_sent                    | include_everything 
+----------+---------------------------------------------------+----------------------------------------------------+--------------------
+ test1    | DROP TABLE foo CASCADE;                           | DROP TABLE foo CASCADE;                            | f
+ test1    | REVOKE INSERT ON foo FROM PUBLIC;                 | REVOKE insert ON foo FROM public;                  | t
+ test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT select ON foo TO public;                     | t
+ test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo (id serial PRIMARY KEY, bla int); | f
 (4 rows)
 
 SELECT * FROM pgl_ddl_deploy.unhandled;
@@ -73,13 +73,13 @@ SELECT pgl_ddl_deploy.deploy(id) FROM pgl_ddl_deploy.set_configs WHERE set_name 
 SET ROLE test_pgl_ddl_deploy;
 CREATE TABLE foo(id serial primary key, bla int);
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |                    ddl_sql_raw                    |                   ddl_sql_sent                    
-----------+---------------------------------------------------+---------------------------------------------------
- test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo(id serial primary key, bla int);
+ set_name |                    ddl_sql_raw                    |                    ddl_sql_sent                    
+----------+---------------------------------------------------+----------------------------------------------------
+ test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo (id serial PRIMARY KEY, bla int);
  test1    | DROP TABLE foo CASCADE;                           | DROP TABLE foo CASCADE;
- test1    | REVOKE INSERT ON foo FROM PUBLIC;                 | REVOKE INSERT ON foo FROM PUBLIC;
- test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT SELECT ON foo TO PUBLIC;
- test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo(id serial primary key, bla int);
+ test1    | REVOKE INSERT ON foo FROM PUBLIC;                 | REVOKE insert ON foo FROM public;
+ test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT select ON foo TO public;
+ test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo (id serial PRIMARY KEY, bla int);
 (5 rows)
 
 GRANT SELECT ON foo TO PUBLIC; 
@@ -87,14 +87,14 @@ SELECT c.set_name, ddl_sql_raw, ddl_sql_sent, c.include_everything
 FROM pgl_ddl_deploy.events e
 INNER JOIN pgl_ddl_deploy.set_configs c ON c.id = e.set_config_id
 ORDER BY e.id DESC LIMIT 10;
- set_name |                    ddl_sql_raw                    |                   ddl_sql_sent                    | include_everything 
-----------+---------------------------------------------------+---------------------------------------------------+--------------------
- test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT SELECT ON foo TO PUBLIC;                    | t
- test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo(id serial primary key, bla int); | f
- test1    | DROP TABLE foo CASCADE;                           | DROP TABLE foo CASCADE;                           | f
- test1    | REVOKE INSERT ON foo FROM PUBLIC;                 | REVOKE INSERT ON foo FROM PUBLIC;                 | t
- test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT SELECT ON foo TO PUBLIC;                    | t
- test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo(id serial primary key, bla int); | f
+ set_name |                    ddl_sql_raw                    |                    ddl_sql_sent                    | include_everything 
+----------+---------------------------------------------------+----------------------------------------------------+--------------------
+ test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT select ON foo TO public;                     | t
+ test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo (id serial PRIMARY KEY, bla int); | f
+ test1    | DROP TABLE foo CASCADE;                           | DROP TABLE foo CASCADE;                            | f
+ test1    | REVOKE INSERT ON foo FROM PUBLIC;                 | REVOKE insert ON foo FROM public;                  | t
+ test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT select ON foo TO public;                     | t
+ test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo (id serial PRIMARY KEY, bla int); | f
 (6 rows)
 
 INSERT INTO foo (bla) VALUES (1),(2),(3);
@@ -104,16 +104,16 @@ SELECT c.set_name, ddl_sql_raw, ddl_sql_sent, c.include_everything
 FROM pgl_ddl_deploy.events e
 INNER JOIN pgl_ddl_deploy.set_configs c ON c.id = e.set_config_id
 ORDER BY e.id DESC LIMIT 10;
- set_name |                    ddl_sql_raw                    |                   ddl_sql_sent                    | include_everything 
-----------+---------------------------------------------------+---------------------------------------------------+--------------------
- test1    | DROP TABLE foo CASCADE;                           | DROP TABLE foo CASCADE;                           | f
- test1    | REVOKE INSERT ON foo FROM PUBLIC;                 | REVOKE INSERT ON foo FROM PUBLIC;                 | t
- test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT SELECT ON foo TO PUBLIC;                    | t
- test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo(id serial primary key, bla int); | f
- test1    | DROP TABLE foo CASCADE;                           | DROP TABLE foo CASCADE;                           | f
- test1    | REVOKE INSERT ON foo FROM PUBLIC;                 | REVOKE INSERT ON foo FROM PUBLIC;                 | t
- test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT SELECT ON foo TO PUBLIC;                    | t
- test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo(id serial primary key, bla int); | f
+ set_name |                    ddl_sql_raw                    |                    ddl_sql_sent                    | include_everything 
+----------+---------------------------------------------------+----------------------------------------------------+--------------------
+ test1    | DROP TABLE foo CASCADE;                           | DROP TABLE foo CASCADE;                            | f
+ test1    | REVOKE INSERT ON foo FROM PUBLIC;                 | REVOKE insert ON foo FROM public;                  | t
+ test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT select ON foo TO public;                     | t
+ test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo (id serial PRIMARY KEY, bla int); | f
+ test1    | DROP TABLE foo CASCADE;                           | DROP TABLE foo CASCADE;                            | f
+ test1    | REVOKE INSERT ON foo FROM PUBLIC;                 | REVOKE insert ON foo FROM public;                  | t
+ test1    | GRANT SELECT ON foo TO PUBLIC;                    | GRANT select ON foo TO public;                     | t
+ test1    | CREATE TABLE foo(id serial primary key, bla int); | CREATE TABLE foo (id serial PRIMARY KEY, bla int); | f
 (8 rows)
 
 SELECT * FROM pgl_ddl_deploy.unhandled;

@@ -20,9 +20,9 @@ WHERE c.set_name LIKE 'my_special_tables%' ORDER BY e.id DESC LIMIT 10;
  my_special_tables_2 | ALTER TABLE special.bar RENAME COLUMN happier TO happierz; | ALTER TABLE special.bar RENAME COLUMN happier TO happierz;
  my_special_tables_1 | ALTER TABLE special.foo RENAME COLUMN id TO id_2;          | ALTER TABLE special.foo RENAME COLUMN id TO id_2;
  my_special_tables_1 | ALTER TABLE special.foo ADD CONSTRAINT bla CHECK (true);   | ALTER TABLE special.foo ADD CONSTRAINT bla CHECK (true);
- my_special_tables_1 | ALTER TABLE special.foo RENAME COLUMN happy to happyz;     | ALTER TABLE special.foo RENAME COLUMN happy to happyz;
- my_special_tables_2 | ALTER TABLE special.bar ADD COLUMN happier TEXT;           | ALTER TABLE special.bar ADD COLUMN happier TEXT;
- my_special_tables_1 | ALTER TABLE special.foo ADD COLUMN happy TEXT;             | ALTER TABLE special.foo ADD COLUMN happy TEXT;
+ my_special_tables_1 | ALTER TABLE special.foo RENAME COLUMN happy to happyz;     | ALTER TABLE special.foo RENAME COLUMN happy TO happyz;
+ my_special_tables_2 | ALTER TABLE special.bar ADD COLUMN happier TEXT;           | ALTER TABLE special.bar ADD COLUMN happier text;
+ my_special_tables_1 | ALTER TABLE special.foo ADD COLUMN happy TEXT;             | ALTER TABLE special.foo ADD COLUMN happy text;
 (10 rows)
 
 -- Test new subcommand functionality
@@ -56,8 +56,8 @@ INNER JOIN pgl_ddl_deploy.set_configs c ON c.id = e.set_config_id
 WHERE c.set_name LIKE 'my_special_tables%' ORDER BY e.id DESC LIMIT 10;
       set_name       |                                  ddl_sql_raw                                   |                                  ddl_sql_sent                                  
 ---------------------+--------------------------------------------------------------------------------+--------------------------------------------------------------------------------
- my_special_tables_1 | ALTER TABLE special.fooz ADD COLUMN bar_id INT;                                | ALTER TABLE special.fooz ADD COLUMN bar_id INT;
- my_special_tables_2 | ALTER TABLE special.barz ADD COLUMN foo_id INT REFERENCES special.fooz (id_2); | ALTER TABLE special.barz ADD COLUMN foo_id INT REFERENCES special.fooz (id_2);
+ my_special_tables_1 | ALTER TABLE special.fooz ADD COLUMN bar_id INT;                                | ALTER TABLE special.fooz ADD COLUMN bar_id int;
+ my_special_tables_2 | ALTER TABLE special.barz ADD COLUMN foo_id INT REFERENCES special.fooz (id_2); | ALTER TABLE special.barz ADD COLUMN foo_id int REFERENCES special.fooz (id_2);
  my_special_tables_1 | ALTER TABLE special.fooz DISABLE TRIGGER noop;                                 | ALTER TABLE special.fooz DISABLE TRIGGER noop;
  my_special_tables_2 | ALTER TABLE special.bar RENAME TO barz;                                        | ALTER TABLE special.bar RENAME TO barz;
  my_special_tables_1 | ALTER TABLE special.foo RENAME TO fooz;                                        | ALTER TABLE special.foo RENAME TO fooz;
@@ -65,7 +65,7 @@ WHERE c.set_name LIKE 'my_special_tables%' ORDER BY e.id DESC LIMIT 10;
  my_special_tables_2 | ALTER TABLE special.bar RENAME COLUMN happier TO happierz;                     | ALTER TABLE special.bar RENAME COLUMN happier TO happierz;
  my_special_tables_1 | ALTER TABLE special.foo RENAME COLUMN id TO id_2;                              | ALTER TABLE special.foo RENAME COLUMN id TO id_2;
  my_special_tables_1 | ALTER TABLE special.foo ADD CONSTRAINT bla CHECK (true);                       | ALTER TABLE special.foo ADD CONSTRAINT bla CHECK (true);
- my_special_tables_1 | ALTER TABLE special.foo RENAME COLUMN happy to happyz;                         | ALTER TABLE special.foo RENAME COLUMN happy to happyz;
+ my_special_tables_1 | ALTER TABLE special.foo RENAME COLUMN happy to happyz;                         | ALTER TABLE special.foo RENAME COLUMN happy TO happyz;
 (10 rows)
 
 SET client_min_messages = warning;

@@ -44,5 +44,5 @@ make_and_test "16" $from_version
 make_and_test "17" $from_version
 make_and_test "18" $from_version
 }
+test_all_versions "2.4"
 test_all_versions "2.3"
-test_all_versions "2.2"

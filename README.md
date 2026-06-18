@@ -39,9 +39,10 @@ https://innovation.enova.com/pursuing-postgres-ddl-replication/
 
 # <a name="release_notes"></a>Release Notes
 
-### Release 2.3
+### Release 2.4
 Summary of changes:
-* Support for Postgres 17 & 18
+* Support for replicating index DDL
+* Prevent DDL that internally touches toast tables from being silently dropped
 
 ### Release 2.2
 Summary of changes:
@@ -356,6 +357,11 @@ SQL statement with a single node `parsetree`) will be eligible for propagation.
   be maintained by DDL replication.  Thus only `ALTER TABLE`
   statements are permitted here.  This option is incompatible with
   `include_schema_regex`.
+- `include_indexes`: if true, will replicate `CREATE INDEX`/`ALTER INDEX`/`DROP INDEX`
+  statements. This can be undesirable if the replica is intended to have different 
+  configuration from the primary. Also, indexes cannot be created with `CREATE INDEX CONCURRENTLY`
+  and will therefore potentially block operations on the table, which can be problematic
+  if the replica is in active read usage.
 - `queue_subscriber_failures`: if true, DDL will be allowed to fail on subscriber
   without breaking replication, and queued for retry using function
   `pgl_ddl_deploy.retry_all_subscriber_logs()`.  This is useful for example if you

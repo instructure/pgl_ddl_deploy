@@ -15,24 +15,24 @@ SELECT * FROM check_rep_tables();
 (4 rows)
 
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |               ddl_sql_raw                |               ddl_sql_sent               
-----------+------------------------------------------+------------------------------------------
- test4    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test3    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test2    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test1    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
+ set_name |               ddl_sql_raw                |               ddl_sql_sent                
+----------+------------------------------------------+-------------------------------------------
+ test4    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test3    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test2    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test1    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
  test8    | DROP TABLE foobar.foo;                   | DROP TABLE foobar.foo;
  test7    | DROP TABLE foobar.foo;                   | DROP TABLE foobar.foo;
  test6    | DROP TABLE foobar.foo;                   | DROP TABLE foobar.foo;
@@ -43,28 +43,28 @@ SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY i
 
 ALTER TABLE foo ADD COLUMN bla TEXT;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |               ddl_sql_raw                |               ddl_sql_sent               
-----------+------------------------------------------+------------------------------------------
- test4    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test3    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test2    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test1    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test4    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test3    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test2    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test1    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
+ set_name |               ddl_sql_raw                |               ddl_sql_sent                
+----------+------------------------------------------+-------------------------------------------
+ test4    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test3    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test2    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test1    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test4    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test3    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test2    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test1    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
  test8    | DROP TABLE foobar.foo;                   | DROP TABLE foobar.foo;
  test7    | DROP TABLE foobar.foo;                   | DROP TABLE foobar.foo;
 (10 rows)
@@ -72,24 +72,24 @@ SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY i
 INSERT INTO foo (bla) VALUES (1),(2),(3);
 DROP TABLE foo CASCADE;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |               ddl_sql_raw                |               ddl_sql_sent               
-----------+------------------------------------------+------------------------------------------
+ set_name |               ddl_sql_raw                |               ddl_sql_sent                
+----------+------------------------------------------+-------------------------------------------
  test4    | DROP TABLE foo CASCADE;                  | DROP TABLE foo CASCADE;
  test3    | DROP TABLE foo CASCADE;                  | DROP TABLE foo CASCADE;
  test2    | DROP TABLE foo CASCADE;                  | DROP TABLE foo CASCADE;
  test1    | DROP TABLE foo CASCADE;                  | DROP TABLE foo CASCADE;
- test4    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test3    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test2    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test1    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla TEXT;
- test4    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
- test3    | /***                                    +| /***                                    +
-          | In default schema                       +| In default schema                       +
-          | **/                                     +| **/                                     +
-          | CREATE TABLE foo(id serial primary key); | CREATE TABLE foo(id serial primary key);
+ test4    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test3    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test2    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test1    | ALTER TABLE foo ADD COLUMN bla TEXT;     | ALTER TABLE foo ADD COLUMN bla text;
+ test4    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
+ test3    | /***                                    +| CREATE TABLE foo (id serial PRIMARY KEY);
+          | In default schema                       +| 
+          | **/                                     +| 
+          | CREATE TABLE foo(id serial primary key); | 
 (10 rows)
 
 CREATE TABLE foobar.foo(id serial primary key);
@@ -107,34 +107,34 @@ SELECT * FROM check_rep_tables();
 (8 rows)
 
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |                   ddl_sql_raw                   |                  ddl_sql_sent                   
-----------+-------------------------------------------------+-------------------------------------------------
- test8    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test7    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test6    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test5    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test4    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test3    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test2    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test1    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
+ set_name |                   ddl_sql_raw                   |                   ddl_sql_sent                   
+----------+-------------------------------------------------+--------------------------------------------------
+ test8    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test7    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test6    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test5    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test4    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test3    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test2    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test1    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
  test4    | DROP TABLE foo CASCADE;                         | DROP TABLE foo CASCADE;
  test3    | DROP TABLE foo CASCADE;                         | DROP TABLE foo CASCADE;
 (10 rows)
 
 ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
 SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY id DESC LIMIT 10;
- set_name |                   ddl_sql_raw                   |                  ddl_sql_sent                   
-----------+-------------------------------------------------+-------------------------------------------------
- test8    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test7    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test6    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test5    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test4    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test3    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test2    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test1    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test8    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
- test7    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo(id serial primary key);
+ set_name |                   ddl_sql_raw                   |                   ddl_sql_sent                   
+----------+-------------------------------------------------+--------------------------------------------------
+ test8    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test7    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test6    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test5    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test4    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test3    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test2    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test1    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;     | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test8    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
+ test7    | CREATE TABLE foobar.foo(id serial primary key); | CREATE TABLE foobar.foo (id serial PRIMARY KEY);
 (10 rows)
 
 INSERT INTO foobar.foo (bla) VALUES (1),(2),(3);
@@ -150,8 +150,8 @@ SELECT set_name, ddl_sql_raw, ddl_sql_sent FROM pgl_ddl_deploy.events ORDER BY i
  test3    | DROP TABLE foobar.foo CASCADE;              | DROP TABLE foobar.foo CASCADE;
  test2    | DROP TABLE foobar.foo CASCADE;              | DROP TABLE foobar.foo CASCADE;
  test1    | DROP TABLE foobar.foo CASCADE;              | DROP TABLE foobar.foo CASCADE;
- test8    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT; | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
- test7    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT; | ALTER TABLE foobar.foo ADD COLUMN bla TEXT;
+ test8    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT; | ALTER TABLE foobar.foo ADD COLUMN bla text;
+ test7    | ALTER TABLE foobar.foo ADD COLUMN bla TEXT; | ALTER TABLE foobar.foo ADD COLUMN bla text;
 (10 rows)
 
 COMMIT;

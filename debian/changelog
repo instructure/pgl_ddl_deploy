@@ -1,3 +1,10 @@
+pgl-ddl-deploy (2.4.0-1) unstable; urgency=medium
+
+  * Support for replicating index DDL
+  * Prevent DDL that internally touches toast tables from being silently dropped
+
+ -- Jacob Burroughs <jburroughs@instructure.com>  Wed, 17 Jun 2026 13:12:22 -0500
+
 pgl-ddl-deploy (2.3.0-1) unstable; urgency=medium
 
   * Support for Postgres 16

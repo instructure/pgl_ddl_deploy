@@ -40,15 +40,3 @@ In <= 1.5, returned this:
  {"DROP SCHEMA","DROP TABLE","DROP FUNCTION","DROP TYPE","DROP VIEW","DROP SEQUENCE"}
 (1 row)
 */
-
-SET client_min_messages TO warning;
-DROP OWNED BY test_pgl_ddl_deploy;
-DROP ROLE test_pgl_ddl_deploy;
-DROP ROLE unpriv;
-DROP EXTENSION pgl_ddl_deploy CASCADE;
-DROP EXTENSION IF EXISTS pglogical CASCADE;
-DROP SCHEMA IF EXISTS pglogical CASCADE;
-DROP TABLE IF EXISTS tmp_objs;
-DROP SCHEMA IF EXISTS special CASCADE;
-DROP SCHEMA IF EXISTS bla CASCADE;
-DROP SCHEMA IF EXISTS pgl_ddl_deploy CASCADE;

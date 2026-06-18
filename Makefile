@@ -10,8 +10,19 @@ DATA = pgl_ddl_deploy--1.0.sql pgl_ddl_deploy--1.0--1.1.sql \
         pgl_ddl_deploy--2.0.sql pgl_ddl_deploy--2.0--2.1.sql \
         pgl_ddl_deploy--2.1.sql pgl_ddl_deploy--2.1--2.2.sql \
         pgl_ddl_deploy--2.2.sql pgl_ddl_deploy--2.2--2.3.sql \
-        pgl_ddl_deploy--2.3.sql
-MODULES = pgl_ddl_deploy ddl_deparse
+        pgl_ddl_deploy--2.3.sql pgl_ddl_deploy--2.3--2.4.sql \
+        pgl_ddl_deploy--2.4.sql
+MODULES = ddl_deparse
+MODULE_big = pgl_ddl_deploy
+OBJS = postgres_deparse.11.o \
+       postgres_deparse.12.o \
+       postgres_deparse.13.o \
+       postgres_deparse.14.o \
+       postgres_deparse.15.o \
+       postgres_deparse.16.o \
+       postgres_deparse.17.o \
+       postgres_deparse.18.o \
+       pgl_ddl_deploy.o
 
 REGRESS := 01_create_ext 02_setup 03_add_configs 04_deploy 04_deploy_update \
            05_allowed 06_multi 07_edges 08_ignored \
@@ -52,7 +63,8 @@ REGRESS := 01_create_ext 02_setup 03_add_configs 04_deploy 04_deploy_update \
            54_new_setup \
            55_raise_message \
            56_1_6_features \
-           57_native_features
+           57_2_4_features \
+           99_native_features
 PG_CONFIG = pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)

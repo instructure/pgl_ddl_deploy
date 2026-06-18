@@ -62,9 +62,9 @@ BEGIN;
 INSERT INTO pgl_ddl_deploy.set_configs (set_name, include_only_repset_tables)
 VALUES ('temp_1', TRUE);
 SELECT create_tags, drop_tags FROM pgl_ddl_deploy.set_configs WHERE set_name = 'temp_1';
-   create_tags   | drop_tags 
------------------+-----------
- {"ALTER TABLE"} | 
+       create_tags       | drop_tags 
+-------------------------+-----------
+ {"ALTER TABLE",COMMENT} | 
 (1 row)
 
 ROLLBACK;

@@ -8,7 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         pg_version: ["11", "12", "13", "14", "15", "16", "17", "18"]
-        from_version: ["2.2", "2.3"]
+        from_version: ["2.3", "2.4"]
     steps:
       - uses: actions/checkout@v6
       - name: Remove default PostgreSQL
